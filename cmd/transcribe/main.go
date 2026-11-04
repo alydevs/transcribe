@@ -30,6 +30,7 @@ var (
 	output  = flag.String("out", ".", "Directory to place output text files.")
 	bucket  = flag.String("bucket", "", "Temporary GCS bucket to hold the audio files. If not provided, a new transient bucket will be created.")
 	mono    = flag.Bool("mono", false, "Convert stereo audio file to mono (required if stereo).")
+	lang    = flag.String("lang", "en-US", "Language code of input audio file")
 
 	version = build.NewVersion(0, 9, 0)
 )
@@ -168,7 +169,7 @@ func process(ctx context.Context, scl *speech.Client, cl *storage.Service, bucke
 
 	before := time.Now()
 
-	phrases, err := transcribe.Submit(ctx, scl, bucket, object)
+	phrases, err := transcribe.Submit(ctx, scl, bucket, object, *lang)
 	if err != nil {
 		return err
 	}

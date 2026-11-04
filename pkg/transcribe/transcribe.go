@@ -12,11 +12,11 @@ import (
 
 // Submit transcribes an 44.1kHz wav file (uploaded to GCS) via the Google Speech
 // API. The call is blocking. It returns a list of phrases.
-func Submit(ctx context.Context, cl *speech.Client, bucket, object string) ([]string, error) {
+func Submit(ctx context.Context, cl *speech.Client, bucket, object string, lang string) ([]string, error) {
 	req := &speechpb.LongRunningRecognizeRequest{
 		Config: &speechpb.RecognitionConfig{
 			Encoding:        speechpb.RecognitionConfig_LINEAR16,
-			LanguageCode:    "en-US",
+			LanguageCode:    lang,
 		},
 		Audio: &speechpb.RecognitionAudio{
 			AudioSource: &speechpb.RecognitionAudio_Uri{Uri: fmt.Sprintf("gs://%v/%v", bucket, object)},
