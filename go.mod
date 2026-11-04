@@ -1,4 +1,4 @@
-module github.com/jamesmurdza/transcribe
+module github.com/alydevs/transcribe
 
 go 1.26.1
 
